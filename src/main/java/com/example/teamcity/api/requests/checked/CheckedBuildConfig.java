@@ -1,9 +1,9 @@
-package com.example.teamcity.api.request.checked;
+package com.example.teamcity.api.requests.checked;
 
 import com.example.teamcity.api.models.BuildType;
-import com.example.teamcity.api.request.CrudInterface;
-import com.example.teamcity.api.request.Request;
-import com.example.teamcity.api.request.unchecked.UncheckedBuildConfig;
+import com.example.teamcity.api.requests.CrudInterface;
+import com.example.teamcity.api.requests.Request;
+import com.example.teamcity.api.requests.unchecked.UncheckedBuildConfig;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 
@@ -20,8 +20,11 @@ public class CheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    public Object get(String id) {
-        return null;
+    public BuildType get(String name) {
+        return new UncheckedBuildConfig(spec)
+                .get(name)
+                .then().assertThat().statusCode(HttpStatus.SC_OK)
+                .extract().as(BuildType.class);
     }
 
     @Override

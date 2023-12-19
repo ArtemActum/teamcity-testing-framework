@@ -1,7 +1,7 @@
-package com.example.teamcity.api.request.unchecked;
+package com.example.teamcity.api.requests.unchecked;
 
-import com.example.teamcity.api.request.CrudInterface;
-import com.example.teamcity.api.request.Request;
+import com.example.teamcity.api.requests.CrudInterface;
+import com.example.teamcity.api.requests.Request;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -23,9 +23,12 @@ public class UncheckedBuildConfig extends Request implements CrudInterface {
     }
 
     @Override
-    public Object get(String id) {
-        return null;
+    public Response get(String name) {
+        return given()
+                .spec(spec)
+                .get(BUILD_CONFIG_ENDPOINT +"/name:"+name);
     }
+
 
     @Override
     public Object update(Object ob) {
